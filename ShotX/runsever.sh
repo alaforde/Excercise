@@ -1,0 +1,1 @@
+uvicorn app:app --workers 3 --host 0.0.0.0 --port 9999 --timeout-keep-alive 120
