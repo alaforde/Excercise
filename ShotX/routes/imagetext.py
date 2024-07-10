@@ -5,7 +5,6 @@ import io
 import base64
 import os
 import json
-from concurrent.futures import ThreadPoolExecutor
 
 router = APIRouter()
 
@@ -38,8 +37,6 @@ async def add_text_to_image(file: UploadFile = File(...), text: str = ""):
         raise HTTPException(status_code=400, detail="File size exceeds 10MB")
     
     try:
-        with ThreadPoolExecutor(max_workers=3) as executor:
-            output_path = executor.submit(save_image_with_text, file, text).result()
         
         with open(output_path, "rb") as img_file:
             base64_img = base64.b64encode(img_file.read()).decode("utf-8")
